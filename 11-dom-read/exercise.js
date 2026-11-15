@@ -20,7 +20,7 @@
  * @returns {string}
  */
 export function pageHeading() {
-  // TODO: querySelector the h1, then read its textContent.
+ return document.querySelector("h1").textContent;
   throw new Error("pageHeading is not written yet");
 }
 
@@ -31,8 +31,7 @@ export function pageHeading() {
  * @returns {number}
  */
 export function productCount() {
-  // TODO: querySelectorAll gives you all of them. It has a length.
-  throw new Error("productCount is not written yet");
+    return document.querySelectorAll(".card").length;
 }
 
 /**
@@ -44,7 +43,8 @@ export function productCount() {
  * @returns {string[]}
  */
 export function productNames() {
-  // TODO: querySelectorAll, Array.from, then map. A NodeList has no .map.
+  return Array.from(document.querySelectorAll(".card")).map(
+  (card) => card.querySelector("h3").textContent);
   throw new Error("productNames is not written yet");
 }
 
@@ -57,8 +57,15 @@ export function productNames() {
  * @returns {string|null}
  */
 export function priceOf(name) {
-  // TODO: find the card whose h3 matches, then read its .price.
-  // Remember to return null when nothing matches.
+  const card = Array.from(document.querySelectorAll(".card")).find(
+  (card) => card.querySelector("h3").textContent === name
+);
+
+if (!card) {
+  return null;
+}
+
+return card.querySelector(".price").textContent;
   throw new Error("priceOf is not written yet");
 }
 
@@ -79,4 +86,8 @@ export function priceOf(name) {
  * Remember `export`.
  */
 
-// TODO: write soldOutNames here.
+export function soldOutNames() {
+  return Array.from(document.querySelectorAll(".card"))
+    .filter((card) => card.classList.contains("sold-out"))
+    .map((card) => card.querySelector("h3").textContent);
+}
